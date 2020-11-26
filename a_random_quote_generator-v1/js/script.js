@@ -54,11 +54,18 @@ function printQuote() {
   const quote = getRandomQuote();
   let html = `
     <p class="quote">${quote.quote}</p>
-    <p class="source">${quote.source}</p>
+    <p class="source">${quote.source}
+  `;
+  if (quote.citation) {
+    html += `
       <span class="citation">${quote.citation}</span>
       <span class="year">${quote.year}</span>
     </p>
-  `;
+    `;
+  } else {
+    html += '</p>';
+  }
+
   document.querySelector('.quote-box').innerHTML = html;
 }
 
