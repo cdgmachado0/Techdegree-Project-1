@@ -92,4 +92,4 @@ function printQuote() {
 
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
 
-setInterval(function() {printQuote();}, 3000);
+setInterval(function() {printQuote();}, 10000);
