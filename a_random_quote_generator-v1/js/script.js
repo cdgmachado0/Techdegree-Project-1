@@ -3,9 +3,6 @@ Treehouse FSJS Techdegree:
 project 1 - A Random Quote Generator
 ******************************************/
 
-// For assistance: 
-  // Check the "Project Resources" section of the project instructions
-  // Reach out in your Slack community - https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat
 
 /*** 
  * `quotes` array 
@@ -33,25 +30,39 @@ const quotes = [
     quote: "Your time is limited, so don't waste it living someone else's life",
     source: "Steve Jobs",
     citation: "Standford Commencement Speech",
-    year: 2005
+    year: 2005,
+    tags: '#inspirational'
   }
 ];
 
-
-/***
- * `getRandomQuote` function
-***/
-function getRandomQuote() {
-  const randonNum = Math.floor(Math.random() * 5);
-  return quotes[randonNum];
-}
+/**
+ * Produces a random number between 0 and its parameter
+ * @param {number} _num upper number that the random number can get
+ * @returns {number} random number between 0 and _num
+ */
+const getRandomNumber = _num => Math.floor(Math.random() * _num);
 
 
-/***
- * `printQuote` function
-***/
+/**
+ * Gets a random quote from the quotes array
+ * @param {number} _num returned random number that will serve as index on the quotes' array
+ * @returns {object} quote with all of its properties
+ */
+const getRandomQuote = _num => quotes[getRandomNumber(_num)];
+
+
+/**
+ * Prints the random quote on index.html
+ * Checks that the same random quote is not used in the following call
+ * Changes the background color of the body with each random quote
+ */
 function printQuote() {
-  const quote = getRandomQuote();
+  const previousQuote = document.querySelector('.quote');
+  let quote;
+  do {
+    quote = getRandomQuote(5);
+  } while (previousQuote.textContent === quote.quote)
+  
   let html = `
     <p class="quote">${quote.quote}</p>
     <p class="source">${quote.source}
@@ -65,8 +76,12 @@ function printQuote() {
   } else {
     html += '</p>';
   }
+  if (quote.tags) {
+    html += `<p>${quote.tags}</p>`;
+  }
 
   document.querySelector('.quote-box').innerHTML = html;
+  document.querySelector('body').style.backgroundColor = `rgb(${getRandomNumber(256)}, ${getRandomNumber(256)}, ${getRandomNumber(256)})`;
 }
 
 
@@ -76,3 +91,5 @@ function printQuote() {
 ***/
 
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
+
+setInterval(function() {printQuote();}, 3000);
