@@ -41,13 +41,26 @@ const quotes = [
 /***
  * `getRandomQuote` function
 ***/
-
+function getRandomQuote() {
+  const randonNum = Math.floor(Math.random() * 5);
+  return quotes[randonNum];
+}
 
 
 /***
  * `printQuote` function
 ***/
-
+function printQuote() {
+  const quote = getRandomQuote();
+  let html = `
+    <p class="quote">${quote.quote}</p>
+    <p class="source">${quote.source}</p>
+      <span class="citation">${quote.citation}</span>
+      <span class="year">${quote.year}</span>
+    </p>
+  `;
+  document.querySelector('.quote-box').innerHTML = html;
+}
 
 
 /***
